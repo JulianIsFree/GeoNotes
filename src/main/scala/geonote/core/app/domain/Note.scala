@@ -2,7 +2,11 @@ package geonote.core.app.domain
 
 import jakarta.persistence._
 
-
+/**
+ * Main entity of object domain, represents note with time mark and possible geo mark on it
+ *
+ * Save your thoughts and rebuild the moment you acquired them
+ */
 @Entity
 class Note {
   @Id
