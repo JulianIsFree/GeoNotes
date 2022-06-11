@@ -10,6 +10,18 @@ import org.springframework.web.bind.annotation.{GetMapping, RequestParam, RestCo
 import java.util.Optional
 import scala.jdk.CollectionConverters.CollectionHasAsScala
 
+
+/**
+ * Represents main logic of the program, since program oriented to reacting at requests
+ *
+ * Strings contained in [[org.springframework.web.bind.annotation.GetMapping]] annotations represents requests' endpoints
+ * For example, if you want to request all notes contained in db:
+ *  Given hostname as ip:port or domain-name url is hostname/notes/get/all
+ * Example with parameter: get notes paginated
+ *  Given hostname as ip:port or domain-name, given desired page number as and size as SIZE
+ *  url is hostname/notes/get/page?page=PAGENUMBER&size=SIZE
+ * etc
+ */
 @RestController
 class NoteController {
   @Autowired
