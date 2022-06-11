@@ -4,22 +4,25 @@ import jakarta.persistence.{Column, Entity, GeneratedValue, GenerationType, Id}
 
 
 @Entity
-class NoteWithGeo {
+class Note {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = NoteWithGeo.COLUMN_ID)
+  @Column(name = Note.COLUMN_ID)
   private var id: Long = _
 
-  @Column(name = NoteWithGeo.COLUMN_CONTENT)
-  private var content: String = "I found myself in smoke far away from home"
+  @Column(name = Note.COLUMN_CONTENT)
+  private var content: String = _
 
-  @Column(name = NoteWithGeo.COLUMN_HAS_GEO)
-  private var hasGeo: Boolean = false
+  @Column(name = Note.COLUMN_TIME)
+  private var time: Long = _
 
-  @Column(name = NoteWithGeo.COLUMN_GEO_X)
+  @Column(name = Note.COLUMN_HAS_GEO)
+  private var hasGeo: Boolean = _
+
+  @Column(name = Note.COLUMN_GEO_X)
   private var x: Double = _
 
-  @Column(name = NoteWithGeo.COLUMN_GEO_Y)
+  @Column(name = Note.COLUMN_GEO_Y)
   private var y: Double = _
 
   def hasGeoMark: Boolean = hasGeo
@@ -39,12 +42,19 @@ class NoteWithGeo {
 
   def getY: Double = y
   def setY(y: Double): Unit = this.y = y
+
+  def getTime: Long = time
+  def setTime(time: Long): Unit = this.time = time
 }
 
-object NoteWithGeo {
+object Note {
+  final val DEFAULT_CONTENT = "I found myself in smoke far away from home"
+
   final val TABLE_NAME = "geotable"
+
   final val COLUMN_ID = "noteid"
   final val COLUMN_CONTENT = "content"
+  final val COLUMN_TIME = "timestamp"
   final val COLUMN_HAS_GEO = "hasgeo"
   final val COLUMN_GEO_X = "geox"
   final val COLUMN_GEO_Y = "geoy"
