@@ -1,6 +1,6 @@
-package geonote.core.app
+package geonote.core.app.domain
 
-import jakarta.persistence.{Column, Entity, GeneratedValue, GenerationType, Id}
+import jakarta.persistence._
 
 
 @Entity

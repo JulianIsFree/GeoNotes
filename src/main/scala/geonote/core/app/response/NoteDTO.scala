@@ -1,6 +1,8 @@
-package geonote.core.app
+package geonote.core.app.response
 
+import geonote.core.app.domain.Note
 import geonote.core.app.util.CodeHelper
+
 import scala.annotation.meta.param
 
 /**
