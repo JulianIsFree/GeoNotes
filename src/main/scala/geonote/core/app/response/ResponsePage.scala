@@ -1,7 +1,7 @@
 package geonote.core.app.response
 
 import geonote.core.app.domain.Note
-import geonote.core.app.response.Response.{FAIL, SUCCESS}
+import geonote.core.app.response.NoteResponse.{FAIL, SUCCESS}
 
 /**
  * Represents paginated response from [[geonote.core.app.controller.NoteController]] to client
@@ -14,7 +14,7 @@ import geonote.core.app.response.Response.{FAIL, SUCCESS}
  * @param size requested size of page
  */
 class ResponsePage(status: Int, error: String, length: Int, notes: Array[NoteDTO],
-                   var totalPages: Int, var page: Int, var size: Int) extends Response(status, error, length, notes) {
+                   var totalPages: Int, var page: Int, var size: Int) extends NoteResponse(status, error, length, notes) {
   def setTotalPages(totalPages: Int): Unit = this.totalPages = totalPages
   def getTotalPages: Int = this.totalPages
 

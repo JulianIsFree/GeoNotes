@@ -9,7 +9,7 @@ import geonote.core.app.domain.Note
  * @param length number of notes in result
  * @param notes result of request, null if request failed
  */
-class Response(var status: Int, var error: String, var length: Int, var notes: Array[NoteDTO]) {
+class NoteResponse(var status: Int, var error: String, var length: Int, var notes: Array[NoteDTO]) {
   def getStatus: Int = status
   def setStatus(status: Int): Unit = this.status = status
 
@@ -23,11 +23,11 @@ class Response(var status: Int, var error: String, var length: Int, var notes: A
   def getLength: Int = this.length
 }
 
-object Response {
+object NoteResponse {
   final val SUCCESS = 0
   final val FAIL = 1
 
-  def onFail(error: String): Response = new Response(FAIL, error, 0, null)
-  def onSuccess(note: Note): Response = new Response(SUCCESS, null, 1, Array(NoteDTO.from(note)))
-  def onSuccess(notes: Array[Note]): Response = new Response(SUCCESS, null, notes.length, NoteDTO.from(notes))
+  def onFail(error: String): NoteResponse = new NoteResponse(FAIL, error, 0, null)
+  def onSuccess(note: Note): NoteResponse = new NoteResponse(SUCCESS, null, 1, Array(NoteDTO.from(note)))
+  def onSuccess(notes: Array[Note]): NoteResponse = new NoteResponse(SUCCESS, null, notes.length, NoteDTO.from(notes))
 }

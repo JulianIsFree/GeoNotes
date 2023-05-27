@@ -2,7 +2,7 @@ package geonote.core.app.controller
 
 import geonote.core.app.domain.Note
 import geonote.core.app.repository.NoteRepository
-import geonote.core.app.response.{Response, ResponsePage}
+import geonote.core.app.response.{NoteResponse, ResponsePage}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.web.bind.annotation.{GetMapping, RequestParam, RestController}
@@ -28,20 +28,20 @@ class NoteController {
   private var repo: NoteRepository = _
 
   @GetMapping(value = Array("/notes/create/nogeo"))
-  def createNoteWithoutGeo(@RequestParam(value = "content", defaultValue = Note.DEFAULT_CONTENT) content: String): Response = try {
+  def createNoteWithoutGeo(@RequestParam(value = "content", defaultValue = Note.DEFAULT_CONTENT) content: String): NoteResponse = try {
     var note = new Note
     note.setHasGeo(false)
     note.setContent(content)
     note.setTime(System.currentTimeMillis())
     note = repo.save(note)
-    Response.onSuccess(note)
+    NoteResponse.onSuccess(note)
   } catch {
-    case e: Throwable => Response.onFail(e.getMessage)
+    case e: Throwable => NoteResponse.onFail(e.getMessage)
   }
 
   @GetMapping(value = Array("/notes/create/geo"))
   def createNoteWithGeo(@RequestParam(value = "content", defaultValue = Note.DEFAULT_CONTENT) content: String,
-                        @RequestParam(value = "x") xStr: String, @RequestParam(value = "y") yStr: String): Response = try {
+                        @RequestParam(value = "x") xStr: String, @RequestParam(value = "y") yStr: String): NoteResponse = try {
     var note = new Note
     note.setContent(content)
     note.setTime(System.currentTimeMillis())
@@ -51,9 +51,9 @@ class NoteController {
     note.setY(yStr.toDouble)
 
     note = repo.save(note)
-    Response.onSuccess(note)
+    NoteResponse.onSuccess(note)
   } catch {
-    case e: Throwable => Response.onFail(e.getMessage)
+    case e: Throwable => NoteResponse.onFail(e.getMessage)
   }
 
   @GetMapping(value = Array("notes/get/page"))
@@ -68,20 +68,20 @@ class NoteController {
   }
 
   @GetMapping(value = Array("/notes/get/all"))
-  def getAllNotes: Response = try {
-    Response.onSuccess(repo.findAll().asScala.toArray)
+  def getAllNotes: NoteResponse = try {
+    NoteResponse.onSuccess(repo.findAll().asScala.toArray)
   } catch {
-    case e: Throwable => Response.onFail(e.getMessage)
+    case e: Throwable => NoteResponse.onFail(e.getMessage)
   }
 
   @GetMapping(value = Array("/notes/remove"))
-  def removeNote(@RequestParam(value = "idString") idString: String): Response = try {
+  def removeNote(@RequestParam(value = "idString") idString: String): NoteResponse = try {
     val id = idString.toLong
     val note: Optional[Note] = repo.findById(id)
     if (note.isEmpty) throw new Exception(s"No such note id: $idString")
     repo.deleteById(id)
-    Response.onSuccess(note.get)
+    NoteResponse.onSuccess(note.get)
   } catch {
-    case e: Throwable => Response.onFail(e.getMessage)
+    case e: Throwable => NoteResponse.onFail(e.getMessage)
   }
 }
